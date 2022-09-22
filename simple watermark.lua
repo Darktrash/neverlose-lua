@@ -16,7 +16,7 @@ local function renderwm()
 	local x = x_slider:get()
 	local y = y_slider:get()
 	
-	render.rect(vector(x, y), vector(x + 126, y + 15), w_color:get(), rounding:get())
+	render.rect(vector(x, y), vector(x + 250, y + 15), w_color:get(), rounding:get())
 	render.text(1, vector(x + 5, y), t_color:get(), nil, "neverlose", " |", user)
 end
 
