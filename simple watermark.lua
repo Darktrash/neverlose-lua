@@ -1,26 +1,36 @@
---simple watermark | by Dark trash
+-- Simple Watermark | by Dark trash#8484
 
---ui
-local wm = ui.create("simple watermark")
-local w_color = wm:color_picker("[w] color")
-local t_color = wm:color_picker("[t] color")
-local rounding = wm:slider("rounding", 0, 10)
-local x_slider = wm:slider("x pos", 5, render.screen_size().x - 131)
-local y_slider = wm:slider("y pos", 5, render.screen_size().y - 20)
+-- Constants
+local username = common.get_username()
+local screen_size_x = render.screen_size().x
+local screen_size_y = render.screen_size().y
 
---constants
-local user = common.get_username()
+-- UI
+local main = ui.create("Main")
+local wm = ui.create("Watermark")
+local text = ui.create("Text")
 
---functions
-local function renderwm()
-	local x = x_slider:get()
-	local y = y_slider:get()
+--- Main Group
+local position_x = main:slider("X Position", 5, screen_size_x - 235)
+local position_y = main:slider("Y Position", 5, screen_size_y - 20)
+
+--- Watermark Group
+local watermark_color = wm:color_picker("Color")
+local rounding = wm:slider("Rounding", 0, 10)
+
+--- Text Group
+local text_color = text:color_picker("Color")
+
+-- Functions
+local function RenderWatermark()
+	local x = position_x:get()
+	local y = position_y:get()
 	
-	render.rect(vector(x, y), vector(x + 250, y + 15), w_color:get(), rounding:get())
-	render.text(1, vector(x + 5, y), t_color:get(), nil, "neverlose", " |", user)
+	render.rect(vector(x, y), vector(x + 230, y + 15), watermark_color:get(), rounding:get())
+	render.text(1, vector(x + 5, y), text_color:get(), s, "NL", " |", username, "| Dominate!")
 end
 
---events
+-- Events
 events.render:set(function()
-	renderwm()
+	RenderWatermark()
 end)
